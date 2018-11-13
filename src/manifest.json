@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "LeDashboard",
+    "version": "1",
+
+    "description": "Keep track of your long-term goals.",
+    "icons": {
+        "128": "tab-icon.png"
+    },
+
+    "author": "Thomas Petracco",
+
+    "chrome_url_overrides" : {
+        "newtab": "index.html"
+    },
+
+    "permissions": [
+        "activeTab",
+        "storage"
+    ]
+}

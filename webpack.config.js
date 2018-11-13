@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -8,6 +9,13 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      'src/index.html',
+      'src/manifest.json',
+      'src/assets/img/tab-icon.png'
+    ], {})
+  ],
   module: {
     rules: [
       {
