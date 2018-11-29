@@ -13,6 +13,7 @@ module.exports = {
     new CopyWebpackPlugin([
       'src/index.html',
       'src/manifest.json',
+      'src/background.js',
       'src/assets/img/tab-icon.png'
     ], {})
   ],
