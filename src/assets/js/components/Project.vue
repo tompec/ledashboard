@@ -74,6 +74,12 @@
     </div>
 </template>
 
+<style>
+    .project .level-left {
+        display: flex;
+    }
+</style>
+
 <script>
     export default {
 
