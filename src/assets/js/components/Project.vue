@@ -1,12 +1,12 @@
 <template>
-    <div class="project" @mouseover="hover = true" @mouseleave="hover = false" :class="{'is-completed': completion == 100}">
+    <div class="project" :class="{'is-completed': completion == 100}">
         <div class="level">
             <div class="level-left">
                 <editable v-model="own_project.name"></editable>
-                <div v-if="hover" class="dropdown is-hoverable">
+                <div class="dropdown is-hoverable">
                     <div class="dropdown-trigger">
                         <button class="button is-dark" aria-haspopup="true" aria-controls="dropdown-menu4" title="Sort">
-                            <span class="icon is-small">
+                            <span class="icon is-small has-text-grey">
                                 <font-awesome-icon icon="cog" />
                             </span>
                         </button>
@@ -14,12 +14,18 @@
                     <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                         <div class="dropdown-content">
                             <div class="dropdown-item">
-                                <div class="field">
-                                    <label class="label">Type</label>
-                                    <div class="control is-expended">
-                                        <div class="buttons">
-                                            <button class="button is-small" :class="{'is-link': own_project.type == 'percentage', 'is-light': own_project.type == 'fixed'}" @click.prevent="own_project.type = 'percentage'">Percentage</button>
-                                            <button class="button is-small" :class="{'is-link': own_project.type == 'fixed', 'is-light': own_project.type == 'percentage'}" @click.prevent="own_project.type = 'fixed'">Value</button>
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label">Type</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field has-addons">
+                                            <p class="control">
+                                                <button class="button is-small" :class="{'is-link': own_project.type == 'percentage', 'is-light': own_project.type == 'fixed'}" @click.prevent="own_project.type = 'percentage'">%</button>
+                                            </p>
+                                            <p class="control">
+                                                <button class="button is-small" :class="{'is-link': own_project.type == 'fixed', 'is-light': own_project.type == 'percentage'}" @click.prevent="own_project.type = 'fixed'">Value</button>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -81,8 +87,7 @@
                 goal: null,
                 unit: null
             },
-            editmode: false,
-            hover: false
+            editmode: false
         }),
 
         mounted() {
