@@ -13,9 +13,10 @@ import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faSort } from '@fortawesome/free-solid-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCoffee, faTachometerAlt,faCog,faPlus,faTimes,faSort)
+library.add(faCoffee, faTachometerAlt,faCog,faPlus,faTimes,faSort,faTwitter)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

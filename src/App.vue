@@ -42,6 +42,9 @@
                     <project v-for="(project, index) in projects" :key="project.id" :project="project" @delete-project="deleteProject"></project>
                 </div>
             </div>
+            <div class="hero-foot">
+                <p class="has-text-centered has-text-grey"><a href="https://twitter.com/thomaspetracco" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'twitter']" /></a></p>
+            </div>
         </div>
     </div>
 </template>
@@ -49,6 +52,9 @@
 <style>
     .hero-head {
         padding: 0 1.5rem;
+    }
+    .hero-foot {
+        padding: 1rem 0;
     }
 </style>
 
