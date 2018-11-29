@@ -95,6 +95,7 @@
             },
             getSortBy() {
                 if (this.chromeStorage) {
+                    var self = this;
                     chrome.storage.sync.get(['sortBy'], function(storage) {
                         if (storage.sortBy) {
                             self.sortBy = storage.sortBy;
