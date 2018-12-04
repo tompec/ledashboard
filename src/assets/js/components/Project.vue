@@ -5,31 +5,24 @@
                 <editable v-model="own_project.name"></editable>
                 <div class="dropdown is-hoverable">
                     <div class="dropdown-trigger">
-                        <button class="button is-dark" aria-haspopup="true" aria-controls="dropdown-menu4" title="Sort">
-                            <span class="icon is-small has-text-grey">
+                        <button class="button is-light is-rounded is-small is-outlined" aria-haspopup="true" aria-controls="dropdown-menu4">
+                            <span class="icon is-small">
                                 <font-awesome-icon icon="cog" />
                             </span>
                         </button>
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                         <div class="dropdown-content">
-                            <div class="dropdown-item">
-                                <div class="field is-horizontal">
-                                    <div class="field-label is-normal">
-                                        <label class="label">Type</label>
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field has-addons">
-                                            <p class="control">
-                                                <button class="button is-small" :class="{'is-link': own_project.type == 'percentage', 'is-light': own_project.type == 'fixed'}" @click.prevent="own_project.type = 'percentage'">%</button>
-                                            </p>
-                                            <p class="control">
-                                                <button class="button is-small" :class="{'is-link': own_project.type == 'fixed', 'is-light': own_project.type == 'percentage'}" @click.prevent="own_project.type = 'fixed'">Value</button>
-                                            </p>
-                                        </div>
-                                    </div>
+                            <div class="field has-addons">
+                                <div class="control is-expanded">
+                                    <button class="button is-fullwidth" :class="{'is-link': own_project.type == 'percentage', 'is-link is-outlined': own_project.type == 'fixed'}" @click.prevent="own_project.type = 'percentage'">Percentage</button>
                                 </div>
-                                <div v-if="own_project.type == 'fixed'" class="field is-horizontal">
+                                <div class="control is-expanded">
+                                    <button class="button is-fullwidth" :class="{'is-link': own_project.type == 'fixed', 'is-link is-outlined': own_project.type == 'percentage'}" @click.prevent="own_project.type = 'fixed'">Value</button>
+                                </div>
+                            </div>
+                            <div v-if="own_project.type == 'fixed'" class="dropdown-item">
+                                <div class="field is-horizontal">
                                     <div class="field-label is-normal">
                                         <label class="label">Goal</label>
                                     </div>
@@ -41,7 +34,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="own_project.type == 'fixed'" class="field is-horizontal">
+                                <div class="field is-horizontal">
                                     <div class="field-label is-normal">
                                         <label class="label">Unit</label>
                                     </div>
@@ -64,7 +57,7 @@
                 </div>
             </div>
             <div class="level-right">
-                <p class="heading is-size-4 has-text-grey">
+                <p class="heading is-size-4">
                     <span v-if="own_project.type == 'percentage'">{{ project.value }}%</span>
                     <span v-else="own_project.type == 'fixed'">{{ project.value }}/{{ project.goal }} {{ project.unit }}</span>
                 </p>
@@ -73,12 +66,6 @@
         <input type="range" min="0" :max="maxSlider" v-model="own_project.value" :class="rangeClass">
     </div>
 </template>
-
-<style>
-    .project .level-left {
-        display: flex;
-    }
-</style>
 
 <script>
     export default {

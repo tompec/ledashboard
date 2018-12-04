@@ -4,6 +4,43 @@ $warning: #ffcb05;
 
 @import "node_modules/bulma/bulma";
 
+.background {
+    background-size: cover;
+    position: absolute;
+    opacity: 0.8;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50% center;
+}
+
+#app {
+    position: relative;
+
+    .hero-head {
+        padding: 0 1.5rem;
+    }
+    .hero-foot {
+        z-index: 1;
+        padding: 1rem 1.5rem;
+        opacity: 0.7;
+        .level-right {
+            font-size: 0.8em;
+        }
+        a.button {
+            padding-left: calc(0.625em - 1px);
+            padding-right: calc(0.625em - 1px);
+            &:not(:last-of-type) {
+                margin-right: 1rem;
+            }
+        }
+    }
+}
+
 .project {
     margin-bottom: 2rem;
 
@@ -14,9 +51,24 @@ $warning: #ffcb05;
 
     .level {
         margin-bottom: 0.5rem;
-        .dropdown-trigger button {
-            margin-bottom: 0;
-            margin-left: 0.5rem;
+        .level-left {
+            display: flex;
+            .heading {
+                margin-bottom: 0;
+            }
+            .dropdown-trigger button {
+                margin-bottom: 0;
+                margin-left: 0.5rem;
+                padding-left: 0.75em;
+                padding-right: 0.75em;
+            }
+            .dropdown-content {
+                padding-top: 0;
+                .field.has-addons .button {
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+            }
         }
     }
 
@@ -29,6 +81,7 @@ $warning: #ffcb05;
         width: 100%;
         cursor: pointer;
         border-radius: 0;
+        opacity: 0.9;
 
         &:focus {
             outline: 0;

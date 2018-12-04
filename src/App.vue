@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <transition name="fade">
+            <div v-if="background" class="background" :style="background_style"></div>
+        </transition>
         <div class="hero is-dark is-fullheight">
             <div class="hero-head">
                 <div class="container is-fluid">
@@ -9,10 +12,10 @@
                         </div>
                         <div class="level-right">
                             <div class="buttons">
-                                <button class="button is-dark" @click="addProject" title="Add Project"><font-awesome-icon icon="plus" /></button>
+                                <button class="button is-text" @click="addProject" title="Add Project"><font-awesome-icon icon="plus" /></button>
                                 <div class="dropdown is-hoverable is-right">
                                     <div class="dropdown-trigger">
-                                        <button class="button is-dark" aria-haspopup="true" aria-controls="dropdown-menu4" title="Sort">
+                                        <button class="button is-text" aria-haspopup="true" aria-controls="dropdown-menu4" title="Sort">
                                             <span class="icon is-small">
                                                 <font-awesome-icon icon="sort" />
                                             </span>
@@ -43,29 +46,43 @@
                 </div>
             </div>
             <div class="hero-foot">
-                <p class="has-text-centered has-text-grey"><a href="https://twitter.com/thomaspetracco" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'twitter']" /></a></p>
+                <div class="container is-fluid">
+                    <div class="level">
+                        <div class="level-left">
+                                <a class="button is-outlined is-light is-rounded is-small" href="https://www.ledashboard.com/?utm_source=ledashboard_app&utm_medium=footer" target="_blank" rel="noopener"><font-awesome-icon :icon="['fas', 'link']" /></a>
+                                <a class="button is-outlined is-light is-rounded is-small" href="https://twitter.com/thomaspetracco" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'twitter']" /></a>
+                        </div>
+                        <div v-if="background" class="level-right">
+                            <p><a :href="background.photo.html" target="_blank" rel="noopener" title="View photo on Unsplash">Photo</a> by <a :href="background.user.html" target="_blank" rel="noopener" :title="background.user.name + ' on Unsplash'">{{ background.user.name }}</a> on <a href="https://unsplash.com/" target="_blank" rel="noopener" title="Unsplash">Unsplash</a></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style>
-    .hero-head {
-        padding: 0 1.5rem;
+
+    .fade-enter-to {
+        transition: opacity 1s;
     }
-    .hero-foot {
-        padding: 1rem 0;
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
     }
 </style>
 
 <script>
+    var moment = require('moment');
+
     export default {
         name: 'app',
 
         data: () => ({
             chromeStorage: true,
             projects: [],
-            sortBy: 'name'
+            sortBy: 'name',
+            backgrounds: []
         }),
 
         created() {
@@ -79,6 +96,7 @@
                 }
                 this.getProjects();
                 this.getSortBy();
+                this.getBackgrounds();
             },
             getProjects() {
                 if (this.chromeStorage) {
@@ -115,6 +133,32 @@
                 }
                 this.sortProjects();
             },
+            getBackgrounds() {
+                if (this.chromeStorage) {
+                    var self = this;
+                    chrome.storage.sync.get(['backgrounds'], function(storage) {
+                        if (storage.backgrounds) {
+                            self.backgrounds = storage.backgrounds;
+                        }
+                        self.checkBackground();
+                    });
+                } else {
+                    const storage = JSON.parse(localStorage.getItem("backgrounds"));
+                    if (storage) {
+                        this.backgrounds = storage;
+                    }
+                    self.checkBackground();
+                }
+            },
+            checkBackground() {
+                if (this.background === undefined) {
+                    axios.get('https://api.ledashboard.com/backgrounds')
+                        .then(response => {
+                            this.backgrounds = response.data;
+                        })
+                        .catch();
+                }
+            },
             addProject() {
                 this.projects.push({
                     id: + new Date(),
@@ -142,6 +186,17 @@
             }
         },
 
+        computed: {
+            background() {
+                return this.backgrounds[moment().format('YYYYMMDD')];
+            },
+            background_style() {
+                return {
+                    backgroundImage: "url(" + this.background.photo.url + ")"
+                };
+            }
+        },
+
         watch: {
             projects: {
                 handler: function () {
@@ -160,6 +215,13 @@
                     localStorage.setItem("sortBy", this.sortBy);
                 }
                 this.sortProjects();
+            },
+            backgrounds: function() {
+                if (this.chromeStorage) {
+                    chrome.storage.sync.set({backgrounds: this.backgrounds});
+                } else {
+                    localStorage.setItem("backgrounds", JSON.stringify(this.backgrounds));
+                }
             }
         }
     }

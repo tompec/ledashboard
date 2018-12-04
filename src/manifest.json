@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
-    "name": "LeDashboard",
-    "version": "0.1.4",
+    "name": "le Dashboard",
+    "version": "0.2",
 
-    "description": "Keep track of your long-term goals.",
+    "description": "Replace new tab page with your long term goals.",
     "icons": {
         "128": "tab-icon.png"
     },
@@ -24,6 +24,7 @@
 
     "permissions": [
         "activeTab",
-        "storage"
+        "storage",
+        "https://api.ledashboard.com/"
     ]
 }
