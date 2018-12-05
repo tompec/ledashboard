@@ -53,7 +53,7 @@
                                 <a class="button is-outlined is-light is-rounded is-small" href="https://twitter.com/thomaspetracco" target="_blank" rel="noopener"><font-awesome-icon :icon="['fab', 'twitter']" /></a>
                         </div>
                         <div v-if="background" class="level-right">
-                            <p><a :href="background.photo.html" target="_blank" rel="noopener" title="View photo on Unsplash">Photo</a> by <a :href="background.user.html" target="_blank" rel="noopener" :title="background.user.name + ' on Unsplash'">{{ background.user.name }}</a> on <a href="https://unsplash.com/" target="_blank" rel="noopener" title="Unsplash">Unsplash</a></p>
+                            <p><a :href="background.photo.html" target="_blank" rel="noopener" title="View photo on Unsplash">Photo</a> by <a :href="background.user.html" target="_blank" rel="noopener" :title="background.user.name + ' on Unsplash'">{{ background.user.name }}</a> on <a href="https://unsplash.com/?utm_source=ledashboard.com&utm_medium=referral" target="_blank" rel="noopener" title="Unsplash">Unsplash</a></p>
                         </div>
                     </div>
                 </div>
@@ -63,9 +63,8 @@
 </template>
 
 <style>
-
     .fade-enter-to {
-        transition: opacity 1s;
+        transition: opacity 0.5s;
     }
     .fade-enter, .fade-leave-to {
         opacity: 0;
