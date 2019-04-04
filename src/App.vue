@@ -75,6 +75,7 @@
     var moment = require('moment');
 
     export default {
+
         name: 'app',
 
         data: () => ({
@@ -96,6 +97,7 @@
                 this.getProjects();
                 this.getSortBy();
                 this.getBackgrounds();
+                this.preloadNextBackground()
             },
             getProjects() {
                 if (this.chromeStorage) {
@@ -133,8 +135,8 @@
                 this.sortProjects();
             },
             getBackgrounds() {
+                var self = this;
                 if (this.chromeStorage) {
-                    var self = this;
                     chrome.storage.sync.get(['backgrounds'], function(storage) {
                         if (storage.backgrounds) {
                             self.backgrounds = storage.backgrounds;
@@ -182,6 +184,12 @@
                     }
                     return project[self.sortBy].toLowerCase();
                 }]);
+            },
+            preloadNextBackground() {
+                if (this.next_background) {
+                    const img = new Image()
+                    img.src = this.next_background.photo.url
+                }
             }
         },
 
@@ -193,6 +201,13 @@
                 return {
                     backgroundImage: "url(" + this.background.photo.url + ")"
                 };
+            },
+            next_background() {
+                if (this.backgrounds[moment().add(1, 'day').format('YYYYMMDD')]) {
+                    return this.backgrounds[moment().add(1, 'day').format('YYYYMMDD')]
+                }
+
+                return null
             }
         },
 
